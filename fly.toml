@@ -1,13 +1,11 @@
-# fly.toml app configuration (monorepo - root config)
 app = "godream"
 primary_region = "gig"
 
 [build]
-  builder = "heroku"
+  dockerfile = "Dockerfile"
 
 [env]
   NODE_ENV = "production"
-  PORT = "3000"
 
 [http_service]
   internal_port = 3000
@@ -20,11 +18,3 @@ primary_region = "gig"
   protocol = "tcp"
   internal_port = 3000
   ports = [{ port = 80, handlers = ["http"] }, { port = 443, handlers = ["tls", "http"] }]
-  [services.concurrency]
-    type = "connections"
-    hard_limit = 1000
-    soft_limit = 800
-  [[services.tcp_checks]]
-    grace_period = "10s"
-    interval = "30s"
-    timeout = "5s"
