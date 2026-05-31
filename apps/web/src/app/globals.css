@@ -1,0 +1,190 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Fonts ──────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+/* ─── CSS Variables ─────────────────────────────────────────── */
+:root {
+  /* Brand colors */
+  --neon-1: #7c5cff;
+  --neon-2: #00e5ff;
+  --neon-3: #ff3df0;
+  --neon-4: #ffd166;
+  --neon-5: #34f5c5;
+  --neon-6: #ff7a18;
+
+  /* Surfaces */
+  --bg: #0e0e16;
+  --surface-1: #13131f;
+  --surface-2: #1a1a2e;
+  --surface-3: #222238;
+  --surface-4: #2a2a46;
+
+  /* Borders */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+
+  /* Text */
+  --text: #f0f0ff;
+  --text-secondary: #a0a0c0;
+  --text-dim: #6b6b8a;
+  --text-muted: #454565;
+
+  /* Gradients */
+  --grad-primary: linear-gradient(135deg, var(--neon-1), var(--neon-2));
+  --grad-warm: linear-gradient(135deg, var(--neon-3), var(--neon-6));
+
+  /* Scrollbar */
+  scrollbar-color: var(--surface-4) transparent;
+  scrollbar-width: thin;
+}
+
+/* ─── Base Resets ───────────────────────────────────────────── */
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ─── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface-4); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--surface-3); }
+
+/* ─── Selection ─────────────────────────────────────────────── */
+::selection { background: rgba(124, 92, 255, 0.35); color: #fff; }
+
+/* ─── Focus ─────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--neon-1);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Component Layer ───────────────────────────────────────── */
+@layer components {
+  /* Cards */
+  .card {
+    @apply bg-surface-1 rounded-2xl border border-border/80 p-6;
+  }
+  .card-hover {
+    @apply card transition-all duration-200 hover:border-border-strong hover:shadow-card-hover hover:-translate-y-0.5;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold
+           transition-all duration-150 cursor-pointer border border-border disabled:opacity-40 disabled:cursor-not-allowed
+           active:scale-95;
+  }
+  .btn-primary {
+    @apply bg-neon-purple hover:bg-neon-purple/90 text-white border-neon-purple/50 shadow-neon-purple/20 hover:shadow-neon-purple;
+  }
+  .btn-secondary {
+    @apply bg-surface-2 hover:bg-surface-3 text-text border-border;
+  }
+  .btn-ghost {
+    @apply bg-transparent hover:bg-surface-2 text-text-secondary hover:text-text border-transparent;
+  }
+  .btn-danger {
+    @apply bg-red-500/10 hover:bg-red-500/20 text-red-400 border-red-500/30;
+  }
+  .btn-sm { @apply px-3 py-1.5 text-xs; }
+  .btn-lg { @apply px-7 py-3.5 text-base; }
+  .btn-icon { @apply w-9 h-9 p-0 rounded-lg; }
+
+  /* Inputs */
+  .input {
+    @apply w-full rounded-xl bg-surface-2 border border-border px-4 py-3 text-sm text-text
+           placeholder:text-text-dim outline-none
+           focus:border-neon-purple/60 focus:ring-1 focus:ring-neon-purple/30
+           transition-all duration-150;
+  }
+  .input-error { @apply border-red-500/60 focus:border-red-500/80 focus:ring-red-500/20; }
+  .label { @apply block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-1.5; }
+
+  /* Badges / Chips */
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-semibold;
+  }
+  .badge-purple { @apply badge bg-neon-purple/15 text-neon-purple border border-neon-purple/25; }
+  .badge-cyan { @apply badge bg-neon-cyan/15 text-neon-cyan border border-neon-cyan/25; }
+  .badge-gold { @apply badge bg-neon-gold/15 text-neon-gold border border-neon-gold/25; }
+  .badge-mint { @apply badge bg-neon-mint/15 text-neon-mint border border-neon-mint/25; }
+  .badge-red { @apply badge bg-red-500/15 text-red-400 border border-red-500/25; }
+
+  /* Progress bars */
+  .progress-bar {
+    @apply w-full h-2 bg-surface-3 rounded-full overflow-hidden;
+  }
+  .progress-fill {
+    @apply h-full rounded-full bg-gradient-to-r from-neon-purple to-neon-cyan transition-all duration-500;
+  }
+
+  /* Stat chips */
+  .stat-chip {
+    @apply inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-sm font-semibold;
+  }
+  .chip-streak { @apply stat-chip bg-orange-500/15 text-orange-400; }
+  .chip-coins  { @apply stat-chip bg-neon-gold/15 text-neon-gold; }
+  .chip-xp     { @apply stat-chip bg-neon-purple/15 text-neon-purple; }
+
+  /* Nav items */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-text-dim
+           hover:text-text hover:bg-surface-2 cursor-pointer transition-all duration-150;
+  }
+  .nav-item.active {
+    @apply text-text bg-neon-purple/15 border border-neon-purple/25;
+  }
+
+  /* Skeleton */
+  .skeleton {
+    @apply bg-surface-2 rounded-lg animate-shimmer bg-shimmer-gradient bg-[length:200%_100%];
+  }
+
+  /* Course card thumbnail */
+  .course-thumb-abbr {
+    @apply absolute inset-0 flex items-center justify-center text-5xl font-black opacity-80;
+  }
+}
+
+/* ─── Utilities ─────────────────────────────────────────────── */
+@layer utilities {
+  .text-gradient {
+    background: var(--grad-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .text-gradient-warm {
+    background: var(--grad-warm);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+  }
+  .glow-purple { box-shadow: 0 0 30px rgba(124, 92, 255, 0.35); }
+  .glow-cyan   { box-shadow: 0 0 30px rgba(0, 229, 255, 0.35); }
+  .glow-magenta { box-shadow: 0 0 30px rgba(255, 61, 240, 0.35); }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+}
